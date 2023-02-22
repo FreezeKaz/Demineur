@@ -4,43 +4,41 @@ public class CreateDemineur : MonoBehaviour
 {
     [SerializeField] private GameObject Case_Clear;
     [SerializeField] private GameObject Case_Bomb;
-    [SerializeField] private GameObject Case_Flag;
-    [SerializeField] private GameObject Case_One;
+    System.Random random = new System.Random();
+    int max = 5;
+    int min = -4;
+
+    public GameObject[,] selectorArr;
     void Start()
     {
-        int x = 0;
-        int y = 1;
-        int c;
-        for (int i = 0; i < 25; i++)
+        selectorArr = new GameObject[10, 10];
+
+        // Start is called before the first frame update
+
+        for (int i = 0; i < 10; i++)
         {
-            c = Random.Range(0, 4);
-            if (i % 5 == 0)
+            //Cells
+            for (int j = 0; j < 10; j++)
             {
-                y -= 1;
-                x = 0;
+                //Instantiate(Case_Clear, new Vector2(j - 4, i - 4), Quaternion.identity);
+                selectorArr[i, j] = Instantiate(Case_Clear, new Vector2(j - 4, i - 4), Quaternion.identity);
             }
-
-            switch (c)
-            {
-                case 0:
-                    Instantiate(Case_Clear, new Vector2(x, y), Quaternion.identity);
-                    break;
-
-                case 1:
-                    Instantiate(Case_Bomb, new Vector2(x, y), Quaternion.identity);
-                    break;
-
-                case 2:
-                    Instantiate(Case_Flag, new Vector2(x, y), Quaternion.identity);
-                    break;
-
-                case 3:
-                    Instantiate(Case_One, new Vector2(x, y), Quaternion.identity);
-                    break;
-            }
-            x += 1;
-
-
         }
+
+        for (int i = 0; i < 10; i++)
+        {
+            //Bombs
+            int x = random.Next(min, max);
+            int y = random.Next(min, max);
+            //Instantiate(Case_Bomb, new Vector2(x, y), Quaternion.identity);
+            selectorArr[x + 4, y + 4] =  Instantiate(Case_Bomb, new Vector2(x, y), Quaternion.identity);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    
     }
 }
