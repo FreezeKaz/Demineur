@@ -21,6 +21,6 @@ public class ClickEvent : MonoBehaviour
 
     public bool IsBombAround()
     {
-        if 
+       return true;
     }
 }
