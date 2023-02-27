@@ -18,11 +18,13 @@ public class CreateDemineur : MonoBehaviour
     [SerializeField] int min = -4;
     [SerializeField] int bombNumber = 10;
 
+
     [SerializeField] public Sprite[] spriteArray;
 
     // Start is called before the first frame update
     void Start()
     {
+
         int count;
         selectorArray = new GameObject[max - min, max - min];
         for (int i = 0; i < bombNumber; i++)
@@ -31,6 +33,7 @@ public class CreateDemineur : MonoBehaviour
             {
                 CreateBomb();
             }
+
 
         }
         for (int i = min; i < max; i++)
@@ -66,6 +69,14 @@ public class CreateDemineur : MonoBehaviour
             if (bombCheck(clickedObject.transform.position, block.transform.position))
             {
                 block.GetComponent<ClickEvent>().click();
+
+        for (int i = 0; i < GridSize; i++)
+        {
+            //Cells
+            for (int j = 0; j < GridSize; j++)
+            {
+                //Instantiate(Case_Clear, new Vector2(j - 4, i - 4), Quaternion.identity);
+                selectorArr[i, j] = Instantiate(Case_Clear, new Vector2(j - 4, i - 4), Quaternion.identity, Case_Clear.transform.parent);
             }
         }
     }
@@ -86,6 +97,13 @@ public class CreateDemineur : MonoBehaviour
         }
         bombs.Add(myBomb);
         return true;
+    }
+
+    public void LostFlag()
+    {
+        FlagNumber--;
+        Debug.Log("Vous avez utilisé un drapeau, il vous en reste " + FlagNumber);
+
     }
     public GameObject[,] getArray() { return selectorArray; }
 
