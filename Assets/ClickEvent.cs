@@ -1,9 +1,11 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
+
 
 public class ClickEvent : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class ClickEvent : MonoBehaviour
     bool clicked = false;
 
     private void Start()
+
     {
         spawner = GameObject.Find("GameStatut");
     }
@@ -58,6 +61,29 @@ public class ClickEvent : MonoBehaviour
     }
 
     public void workOnAdjacent()
+        if(Input.GetMouseButtonDown(1))
+        {
+            if(_DemineurGame.FlagNumber > 0)
+            {
+                Debug.Log("Sprite right clicked");
+                ChangeOnFlag();         //flag   
+                _DemineurGame.LostFlag();
+            }
+            else
+            {
+                Debug.Log("Vous ne possédez plus de drapeau");
+            }
+
+        }
+    }
+
+    void ChangeOnFlag()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = Flag;
+    }
+
+    public bool IsBombAround()
     {
         if (transform.GetChild(1).GetComponent<SpriteRenderer>().sprite.name == "TurnedOff")
         {
