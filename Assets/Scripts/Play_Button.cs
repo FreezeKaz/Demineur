@@ -8,7 +8,11 @@ public class Play_Button : MonoBehaviour
     // Start is called before the first frame update
     public void GoToGame()
     {
-        SceneManager.LoadScene("Ethan");
+        if (Difficulty_Button.index != 0)
+        {
+            SceneManager.LoadScene("Game");
+        }
+
     }
 }
 
