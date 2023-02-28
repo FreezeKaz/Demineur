@@ -11,6 +11,7 @@ public class CreateDemineur : MonoBehaviour
 {
     [SerializeField] GameObject clear;
     [SerializeField] GameObject bomb;
+    [SerializeField] Camera cam;
     System.Random random = new System.Random();
     List<GameObject> bombs = new List<GameObject>();
     public GameObject[,] selectorArray { get; set; }
@@ -24,7 +25,26 @@ public class CreateDemineur : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        switch (Difficulty_Button.index)
+        {
+            case 1:
+                max = 5;
+                min = -4;
+                bombNumber = 1;
+                cam.orthographicSize = 5f;
+                break;
+            case 2:
+                max = 10;
+                min = -9;
+                bombNumber = 45;
+                break;
+            case 3:
+                max = 15;
+                min = -14;
+                bombNumber = 90;
+                cam.orthographicSize = 15;
+                break;
+        }
         int count;
         selectorArray = new GameObject[max - min, max - min];
         for (int i = 0; i < bombNumber; i++)
@@ -33,8 +53,6 @@ public class CreateDemineur : MonoBehaviour
             {
                 CreateBomb();
             }
-
-
         }
         for (int i = min; i < max; i++)
         {
@@ -47,7 +65,6 @@ public class CreateDemineur : MonoBehaviour
 
                 foreach (var bomb in bombs)
                 {
-
                     if (bomb.transform.position == block.transform.position)
                     {
                         bomb.transform.SetParent(block.transform, true);
@@ -58,25 +75,6 @@ public class CreateDemineur : MonoBehaviour
                         block.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().sprite = spriteArray[count];
                     }
                 }
-            }
-        }
-    }
-
-    public void RevealAll(GameObject clickedObject)
-    {
-        foreach (var block in selectorArray)
-        {
-            if (bombCheck(clickedObject.transform.position, block.transform.position))
-            {
-                block.GetComponent<ClickEvent>().click();
-
-        for (int i = 0; i < GridSize; i++)
-        {
-            //Cells
-            for (int j = 0; j < GridSize; j++)
-            {
-                //Instantiate(Case_Clear, new Vector2(j - 4, i - 4), Quaternion.identity);
-                selectorArr[i, j] = Instantiate(Case_Clear, new Vector2(j - 4, i - 4), Quaternion.identity, Case_Clear.transform.parent);
             }
         }
     }
@@ -99,12 +97,7 @@ public class CreateDemineur : MonoBehaviour
         return true;
     }
 
-    public void LostFlag()
-    {
-        FlagNumber--;
-        Debug.Log("Vous avez utilisé un drapeau, il vous en reste " + FlagNumber);
 
-    }
     public GameObject[,] getArray() { return selectorArray; }
 
 
@@ -131,4 +124,39 @@ public class CreateDemineur : MonoBehaviour
     {
 
     }
+
+    public void RevealAll(GameObject clickedObject)
+    {
+        foreach (var block in selectorArray)
+        {
+            if (bombCheck(clickedObject.transform.position, block.transform.position))
+            {
+                block.GetComponent<ClickEvent>().click();
+            }
+
+        }
+    }
+
+    public bool CheckWin()
+    {
+        int win = 0;
+        for (int i = min; i < max; i++)
+        {
+            for (int j = min; j < max; j++)
+            {
+                GameObject block = selectorArray[i - min, j - min];
+                if (block.transform.GetChild(0).gameObject.activeSelf == true && block.transform.childCount == 3) win++;
+            }
+        }
+        if (win == bombNumber)
+        {
+            Debug.Log("let's go");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

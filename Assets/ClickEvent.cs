@@ -1,10 +1,7 @@
 
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
+
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
+
 
 
 public class ClickEvent : MonoBehaviour
@@ -30,19 +27,29 @@ public class ClickEvent : MonoBehaviour
             {
                 Debug.Log("Sprite right clicked");
                 red_flag.gameObject.SetActive(false);
+
             }
             else
             {
                 red_flag.gameObject.SetActive(true);
+                if (spawner.GetComponent<CreateDemineur>().CheckWin())
+                {
+                    spawner.GetComponent<CreateDemineur>().RevealAll(gameObject);
+                }
+
+
             }
+
         }
-        else if (Input.GetMouseButtonDown(0))
+        else if (Input.GetMouseButtonDown(0) && red_flag.gameObject.activeSelf == false)
         {
             click();
         }
     }
     public void click()
     {
+
+
         if (!clicked)
         {
             GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
@@ -56,34 +63,12 @@ public class ClickEvent : MonoBehaviour
                 _number.gameObject.SetActive(true);
                 clicked = true;
                 workOnAdjacent();
+
             }
         }
     }
 
     public void workOnAdjacent()
-        if(Input.GetMouseButtonDown(1))
-        {
-            if(_DemineurGame.FlagNumber > 0)
-            {
-                Debug.Log("Sprite right clicked");
-                ChangeOnFlag();         //flag   
-                _DemineurGame.LostFlag();
-            }
-            else
-            {
-                Debug.Log("Vous ne possédez plus de drapeau");
-            }
-
-        }
-    }
-
-    void ChangeOnFlag()
-    {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = Flag;
-    }
-
-    public bool IsBombAround()
     {
         if (transform.GetChild(1).GetComponent<SpriteRenderer>().sprite.name == "TurnedOff")
         {

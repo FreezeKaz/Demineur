@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Difficulty_Button : MonoBehaviour
 {
-    public int index = 0;
+    static public int index = 0;
     [SerializeField] public Sprite[] spriteArray;
     // Start is called before the first frame update
     void Start()
@@ -13,10 +13,10 @@ public class Difficulty_Button : MonoBehaviour
 
     }
 
-     public void AddOne() 
+    public void AddOne()
     {
         Debug.Log(index);
-        if(index == spriteArray.Length - 1)
+        if (index == spriteArray.Length - 1)
         {
             index = 1;
         }
