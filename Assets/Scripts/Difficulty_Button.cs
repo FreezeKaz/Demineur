@@ -10,7 +10,7 @@ public class Difficulty_Button : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        index = 0;
     }
 
     public void AddOne()

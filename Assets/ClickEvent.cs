@@ -23,6 +23,8 @@ public class ClickEvent : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
+
+          
             if (red_flag.gameObject.activeSelf == true)
             {
                 Debug.Log("Sprite right clicked");
@@ -43,13 +45,14 @@ public class ClickEvent : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(0) && red_flag.gameObject.activeSelf == false)
         {
+            GetComponent<AudioSource>().Play();
             click();
         }
     }
     public void click()
     {
 
-
+      
         if (!clicked)
         {
             GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
