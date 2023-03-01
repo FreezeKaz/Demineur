@@ -152,8 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f499c9114747a42b26b732fd9c2038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clear: {fileID: 2279923583802647806, guid: 5c6b6b5d5fac06d4184425dd51085cc6, type: 3}
-  bomb: {fileID: 2193906496682495745, guid: a206531f5401be544a00a28ae7c8f1a2, type: 3}
+  clear: {fileID: 4070727386143183059, guid: b8ba66acd927fe44ca014ed84c4bd861, type: 3}
+  bomb: {fileID: 3922303104469922995, guid: 163fd5d2db760eb4fa571abb21f6de58, type: 3}
+  cam: {fileID: 519420031}
   max: 9
   min: -8
   bombNumber: 25
