@@ -12,6 +12,8 @@ public class CreateDemineur : MonoBehaviour
     [SerializeField] GameObject clear;
     [SerializeField] GameObject bomb;
     [SerializeField] Camera cam;
+    [SerializeField] GameObject victory;
+    [SerializeField] GameObject defeat;
     System.Random random = new System.Random();
     List<GameObject> bombs = new List<GameObject>();
     public GameObject[,] selectorArray { get; set; }
@@ -195,15 +197,9 @@ public class CreateDemineur : MonoBehaviour
             }
         }
         AddNumbers();
-
-
-
-    }
-
+        }
     public void AddNumbers()
     {
-
-
         for (int i = min; i < max; i++)
         {
             for (int j = min; j < max; j++)

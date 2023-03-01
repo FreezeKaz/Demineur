@@ -24,6 +24,8 @@ public class ClickEvent : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
+
+          
             if (red_flag.gameObject.activeSelf == true)
             {
 
@@ -43,7 +45,9 @@ public class ClickEvent : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(0) && red_flag.gameObject.activeSelf == false)
         {
+            GetComponent<AudioSource>().Play();
             CreateBombOnFirstClick();
+
             click();
             if (spawner.GetComponent<CreateDemineur>().CheckWin())
             {
@@ -56,7 +60,7 @@ public class ClickEvent : MonoBehaviour
     public void click()
     {
 
-
+      
         if (!clicked)
         {
             _number.gameObject.SetActive(true);

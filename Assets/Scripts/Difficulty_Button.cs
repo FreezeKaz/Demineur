@@ -28,6 +28,7 @@ public sealed class Difficulty_Button : MonoBehaviour
         {
             _instance = this;
         }
+
     }
 
     public void AddOne()
