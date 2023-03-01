@@ -1,21 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Difficulty_Button : MonoBehaviour
+public sealed class Difficulty_Button : MonoBehaviour
 {
-    static public int index = 0;
+    public int index = 0;
     [SerializeField] public Sprite[] spriteArray;
+    private static Difficulty_Button _instance = null;
+    public static Difficulty_Button Instance => _instance;
+
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         index = 0;
     }
 
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            _instance = this;
+        }
+
+    }
+
     public void AddOne()
     {
-        Debug.Log(index);
         if (index == spriteArray.Length - 1)
         {
             index = 1;
@@ -26,4 +43,6 @@ public class Difficulty_Button : MonoBehaviour
         }
         GetComponent<Image>().sprite = spriteArray[index];
     }
+   
 }
+

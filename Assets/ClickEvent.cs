@@ -21,33 +21,41 @@ public class ClickEvent : MonoBehaviour
 
     private void OnMouseOver()
     {
+
         if (Input.GetMouseButtonDown(1))
         {
 
           
             if (red_flag.gameObject.activeSelf == true)
             {
-                Debug.Log("Sprite right clicked");
+
                 red_flag.gameObject.SetActive(false);
 
             }
             else
             {
+                Debug.Log("Sprite right clicked");
                 red_flag.gameObject.SetActive(true);
                 if (spawner.GetComponent<CreateDemineur>().CheckWin())
                 {
-                    spawner.GetComponent<CreateDemineur>().RevealAll(gameObject);
+                    //
                 }
-
-
             }
 
         }
         else if (Input.GetMouseButtonDown(0) && red_flag.gameObject.activeSelf == false)
         {
             GetComponent<AudioSource>().Play();
+            CreateBombOnFirstClick();
+
             click();
+            if (spawner.GetComponent<CreateDemineur>().CheckWin())
+            {
+                //
+            }
         }
+
+
     }
     public void click()
     {
@@ -55,6 +63,7 @@ public class ClickEvent : MonoBehaviour
       
         if (!clicked)
         {
+            _number.gameObject.SetActive(true);
             GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
             if (GetComponent<SpriteRenderer>().transform.childCount == 3)
             {
@@ -78,4 +87,23 @@ public class ClickEvent : MonoBehaviour
             spawner.GetComponent<CreateDemineur>().RevealAll(gameObject);
         }
     }
+
+    public void CreateBombOnFirstClick()
+    {
+        if (spawner.GetComponent<CreateDemineur>().created == false)
+        {
+
+            do 
+            {
+
+                spawner.GetComponent<CreateDemineur>().CreateAllBomb();
+            }while (transform.GetChild(1).GetComponent<SpriteRenderer>().sprite.name != "TurnedOff" || transform.childCount == 3);
+                
+            
+           
+            spawner.GetComponent<CreateDemineur>().created = true;
+        }
+       
+    }
+
 }
