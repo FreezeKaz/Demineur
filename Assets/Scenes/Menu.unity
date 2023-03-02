@@ -5901,7 +5901,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1272189474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c820a2fbd0c7b340ad55a1d4513f632, type: 3}
+  m_Script: {fileID: 11500000, guid: a0de283a09ed5fa4b828ae546b75b4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1399339099
@@ -11292,8 +11292,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1272189476}
-        m_TargetAssemblyTypeName: Exit_Button, Assembly-CSharp
-        m_MethodName: ExitGame
+        m_TargetAssemblyTypeName: Leave_Game, Assembly-CSharp
+        m_MethodName: LeaveGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
