@@ -12,41 +12,53 @@ public class CreateDemineur : MonoBehaviour
     [SerializeField] GameObject clear;
     [SerializeField] GameObject bomb;
     [SerializeField] Camera cam;
+    [SerializeField] SpriteRenderer background;
     System.Random random = new System.Random();
     List<GameObject> bombs = new List<GameObject>();
     public GameObject[,] selectorArray { get; set; }
     public bool created = false;
     private int max = 5;
-    private int min = -4;
+    private int min = -4;   
     private int bombNumber = 10;
-    public GameObject victory;
-    public GameObject blurr;
+    [Header("Assets")]
+    [SerializeField] public GameObject victory;
+    [SerializeField] public GameObject blurr;
+    [SerializeField] public GameObject defeat;
 
+
+    public bool _stop = false;
     [SerializeField] public Sprite[] spriteArray;
 
     // Start is called before the first frame update
     void Start()
     {
+        victory.SetActive(false);
+        defeat.SetActive(false);
         switch (Difficulty_Button.Instance.index)
         {
-            case 1:
+            case 1:            
                 max = 4;
                 min = -3;
                 bombNumber = 5;
                 cam.orthographicSize = 5f;
+                background.transform.localScale = new Vector3(0.93f,0.93f,0.93f);
                 break;
-            case 2:
+            case 2:              
+                max = 7;    
+                min = -6;
+                cam.orthographicSize = 9.16f;
+                background.transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+                bombNumber = 25;
+                break;
+            case 3:           
                 max = 10;
                 min = -9;
-                bombNumber = 45;
-                break;
-            case 3:
-                max = 15;
-                min = -14;
-                bombNumber = 150;
-                cam.orthographicSize = 15;
+                bombNumber = 90;
+                cam.orthographicSize = 12f;
+                background.transform.localScale = new Vector3(2.27f, 2.27f, 2.27f);
                 break;
         }
+       
         selectorArray = new GameObject[max - min, max - min];
 
         for (int i = min; i < max; i++)
@@ -130,6 +142,11 @@ public class CreateDemineur : MonoBehaviour
         }
     }
 
+    public void LooseGame()
+    {
+        defeat.gameObject.SetActive(true);
+        blurr.transform.position = new Vector2(cam.transform.position.x, cam.transform.position.y);
+    }
     public bool CheckWin()
     {
         int win = 0;
@@ -146,7 +163,7 @@ public class CreateDemineur : MonoBehaviour
         }
         if (win == bombNumber)
         {
-            Debug.Log("let's go");
+            _stop = true;
             victory.gameObject.SetActive(true);
             blurr.transform.position = new Vector2(cam.transform.position.x, cam.transform.position.y);
             return true;
@@ -176,7 +193,6 @@ public class CreateDemineur : MonoBehaviour
         {
             return false;
         }
-
     }
     public void CreateAllBomb()
     {
@@ -205,7 +221,6 @@ public class CreateDemineur : MonoBehaviour
                 int count = 0;
                 foreach (var bomb in bombs)
                 {
-
                     if (bombCheck(bomb.transform.position, selectorArray[i - min, j - min].transform.position) && bomb.transform.position != selectorArray[i - min, j - min].transform.position)
                     {
                         count += 1;
