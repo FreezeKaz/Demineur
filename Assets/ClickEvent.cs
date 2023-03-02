@@ -12,6 +12,7 @@ public class ClickEvent : MonoBehaviour
     [SerializeField] SpriteRenderer _number;
     [SerializeField] Sprite empty;
     bool clicked = false;
+    public GameObject defeat;
 
     private void Start()
 
@@ -69,6 +70,7 @@ public class ClickEvent : MonoBehaviour
             {
                 _number.sprite = empty;
                 Debug.Log("Dead");
+                defeat.gameObject.SetActive(true);
             }
             else
             {

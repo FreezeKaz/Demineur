@@ -12,8 +12,6 @@ public class CreateDemineur : MonoBehaviour
     [SerializeField] GameObject clear;
     [SerializeField] GameObject bomb;
     [SerializeField] Camera cam;
-    [SerializeField] GameObject victory;
-    [SerializeField] GameObject defeat;
     System.Random random = new System.Random();
     List<GameObject> bombs = new List<GameObject>();
     public GameObject[,] selectorArray { get; set; }
@@ -21,7 +19,8 @@ public class CreateDemineur : MonoBehaviour
     private int max = 5;
     private int min = -4;
     private int bombNumber = 10;
-
+    public GameObject victory;
+    public GameObject blurr;
 
     [SerializeField] public Sprite[] spriteArray;
 
@@ -62,9 +61,6 @@ public class CreateDemineur : MonoBehaviour
             }
         }
     }
-
-
-
 
     public bool CreateBomb()
     {
@@ -151,6 +147,8 @@ public class CreateDemineur : MonoBehaviour
         if (win == bombNumber)
         {
             Debug.Log("let's go");
+            victory.gameObject.SetActive(true);
+            blurr.transform.position = new Vector2(cam.transform.position.x, cam.transform.position.y);
             return true;
         }
         else
